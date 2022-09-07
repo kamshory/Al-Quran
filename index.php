@@ -73,7 +73,7 @@ else
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        
+
     </style>
 
     <script>
@@ -172,10 +172,10 @@ else
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                    <a href="https://github.com/kamshory/Al-Quran" class="download">Download source</a>
                 </li>
                 <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                    <a href="https://github.com/kamshory/Al-Quran" class="article">Back to article</a>
                 </li>
             </ul>
         </nav>
@@ -261,9 +261,6 @@ else
 
         </div>
     </div>
-    <script
-        src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js">
-    </script>
 
 
     <script id="rendered-js">
@@ -272,7 +269,6 @@ else
                 $('#sidebar').toggleClass('active');
             });
         });
-        //# sourceURL=pen.js
     </script>
 
 
