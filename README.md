@@ -27,3 +27,6 @@ atau
 
 > orang beriman
 
+Example 
+
+https://quran.planetbiru.com/
