@@ -202,7 +202,7 @@ else
                 </div>
                 <div class="sound">
                     <audio onended="endAudio(this)"
-                        src="sounds/<?php echo str_replace(':', '', $data['ayat_key']);?>.mp3" controls></audio>
+                        data-src="sounds/<?php echo str_replace(':', '', $data['ayat_key']);?>.mp3" controls></audio>
                 </div>
 
                 <div class="link-surat">

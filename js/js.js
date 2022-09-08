@@ -17,6 +17,10 @@ $(document).ready(function () {
         $("html, body").animate({ scrollTop: scrollPosition });
     }
 
+    $('audio').each(function(e2){
+        $(this).attr('src', $(this).attr('data-src'));
+    });
+
 });
 function endAudio(obj) {
     var parent = $(obj).closest('.ayat-item');
