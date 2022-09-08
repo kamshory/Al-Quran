@@ -187,7 +187,7 @@ else
     foreach($result as $data)
     {
         ?>
-            <div class="ayat-item" data-ayat="<?php echo $data['ayat'];?>">
+            <div class="ayat-item" data-anchor="<?php echo str_replace(':', '', $data['ayat_key']);?>">
                 <div class="text arab">
                     <?php
             echo $data['text'];
@@ -201,12 +201,12 @@ else
             ?>
                 </div>
                 <div class="sound">
-                    <audio onended="endAudio(this)"
+                    <audio onended="endAudio(this)" onplay="playAudio(this)" data-ayat-key="<?php echo str_replace(':', '', $data['ayat_key']);?>"
                         data-src="sounds/<?php echo str_replace(':', '', $data['ayat_key']);?>.mp3" controls></audio>
                 </div>
 
                 <div class="link-surat">
-                    <a href="./?s=<?php echo $data['surat'];?>&scroll=<?php echo $data['ayat'];?>">
+                    <a href="./?s=<?php echo $data['surat'];?>&scroll=<?php echo str_replace(':', '', $data['ayat_key']);?>">
                         <?php
                     echo $quran->getAyatLabel($data['ayat_key']);
                 ?>

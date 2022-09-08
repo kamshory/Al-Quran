@@ -12,8 +12,7 @@ $(document).ready(function () {
 
     if(scroll != '')
     {
-        var pos = parseInt(scroll);
-        var scrollPosition = $('[data-ayat="'+pos+'"]').offset().top;
+        var scrollPosition = $('[data-anchor="'+scroll+'"]').offset().top;
         $("html, body").animate({ scrollTop: scrollPosition });
     }
 
@@ -31,6 +30,13 @@ function endAudio(obj) {
         var suratInt = parseInt(surat);
         nextSurat(suratInt);
     }
+}
+
+function playAudio(obj)
+{
+    var parent = $(obj).closest('.ayat-item');
+    var scrollPosition = parent.offset().top;
+    $("html, body").animate({ scrollTop: scrollPosition });
 }
 
 function nextSurat(suratInt) {
