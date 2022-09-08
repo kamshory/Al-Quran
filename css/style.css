@@ -187,7 +187,7 @@ MEDIAQUERIES
     margin: 0;
     padding: 0;
     list-style-type: none;
-    max-height: 300px;
+    max-height: 200px;
     overflow: auto;
 }
 
@@ -275,4 +275,8 @@ MEDIAQUERIES
     top: 8px;
     padding: 3px 10px;
     font-size: 14px;
+}
+
+.link-surat{
+    padding: 5px 0 0 0;
 }

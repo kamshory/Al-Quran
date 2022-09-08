@@ -124,28 +124,10 @@ else
                     </ul>
                 </li>
                 <li>
-                    <a href="#">About</a>
+                    <a href="https://planetbiru.com">About</a>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
+                    <a href="https://planetbiru.com">Contact</a>
                 </li>
             </ul>
 
@@ -154,7 +136,7 @@ else
                     <a href="https://github.com/kamshory/Al-Quran" class="download">Download source</a>
                 </li>
                 <li>
-                    <a href="https://github.com/kamshory/Al-Quran" class="article">Back to article</a>
+                    <a href="https://planetbiru.com" class="article">Our Website</a>
                 </li>
             </ul>
         </nav>
@@ -223,7 +205,7 @@ else
                         src="sounds/<?php echo str_replace(':', '', $data['ayat_key']);?>.mp3" controls></audio>
                 </div>
 
-                <div class="ayat-label">
+                <div class="link-surat">
                     <a href="./?s=<?php echo $data['surat'];?>">
                     <?php
                     echo $quran->getAyatLabel($data['ayat_key']);
