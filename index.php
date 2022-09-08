@@ -187,7 +187,7 @@ else
             <div class="search-form">
                 <form action="" method="get">
                     <input type="text" name="q" id="q" value="<?php echo htmlspecialchars($q);?>" autocomplete="off">
-                    <input type="submit" value="Cari">
+                    <input type="submit" value="Cari" class="btn btn-sm btn-success">
                 </form>
             </div>
 
@@ -214,9 +214,11 @@ else
                 </div>
 
                 <div class="ayat-label">
+                    <a href="./?s=<?php echo $data['surat'];?>">
                     <?php
-                echo $quran->getAyatLabel($data['ayat_key']);
+                    echo $quran->getAyatLabel($data['ayat_key']);
                 ?>
+                    </a>
                 </div>
             </div>
             <?php

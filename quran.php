@@ -140,11 +140,8 @@ class Quran{
 
     public function connect()
     {
-
-     
         try {
             $this->database = new PDO("mysql:host=$this->serverName;port=$this->port;dbname=$this->databaseName", $this->username, $this->password);
-            // set the PDO error mode to exception
             $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } 
         catch(PDOException $e) 
@@ -170,8 +167,7 @@ class Quran{
 
                 $sql2 = "UPDATE indonesianquran set verse_key = '$key' where `index` = '$index' ";
                 $this->execute($sql2);
-                echo $sql2.";\r\n";
-
+ 
             }
         }
     }
@@ -266,7 +262,7 @@ class Quran{
         if($translationKey != null)
         {
             $sql = "select ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
-            ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key,
+            ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key,
             ".$this->tableTranslation.".translation
             from ".$this->tableAyat." 
             left join(".$this->tableTranslation.") 
@@ -278,7 +274,8 @@ class Quran{
         else
         {
             $sql = "select ".$this->tableAyat.".text, ".$this->tableAyat.".simple 
-            from ".$this->tableAyat.", ".$this->tableAyat.".ayat_key 
+            ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key 
+            from ".$this->tableAyat."
             where (1 = 1) $filter 
             order by ".$this->tableAyat.".ayat_key asc 
             ";
@@ -304,7 +301,7 @@ class Quran{
         }
 
         $sql = "SELECT t.* FROM(SELECT ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
-        ".$this->tableAyat.".ayat,
+        ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat,
         ".$this->tableTranslation.".translation, ".$this->tableTranslation.".ayat_key,
         MATCH(translation) AGAINST('$text' IN NATURAL LANGUAGE MODE) as score 
         FROM ".$this->tableTranslation." 
