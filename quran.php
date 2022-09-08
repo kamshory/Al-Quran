@@ -318,14 +318,15 @@ class Quran{
         $sql = "SELECT t.* FROM(SELECT ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
         ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat,
         ".$this->tableTranslation.".translation, ".$this->tableTranslation.".ayat_key,
-        MATCH(translation) AGAINST('$text' IN NATURAL LANGUAGE MODE) as score 
+        MATCH(translation) AGAINST('$text' IN NATURAL LANGUAGE MODE) AS score 
         FROM ".$this->tableTranslation." 
-        left join(".$this->tableAyat.") 
-        on(".$this->tableTranslation.".ayat_key = ".$this->tableAyat.".ayat_key and ".$this->tableTranslation.".translation_key = '".$translationKey."')
+        LEFT JOIN(".$this->tableAyat.") 
+        ON(".$this->tableTranslation.".ayat_key = ".$this->tableAyat.".ayat_key AND ".$this->tableTranslation.".translation_key = '".$translationKey."')
         WHERE MATCH(".$this->tableTranslation.".translation) AGAINST('$text' IN NATURAL LANGUAGE MODE) 
         ORDER BY score desc) as t
         WHERE (1 = 1)
         $filter
+        ORDER BY t.ayat_key ASC
         ";
   
         $data = $this->getData($sql);
