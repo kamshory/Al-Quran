@@ -6,6 +6,11 @@ $q = @$_GET['q'];
 $s = @$_GET['s'];
 $j = @$_GET['j'];
 
+
+$q = preg_replace('/[^A-Za-z0-9\-\"\' ]/', '', $q); 
+$q = str_replace("'", '"', $q);
+
+
 $serverName = "localhost";
 $port = 3306;
 $username = "quran";
@@ -156,11 +161,11 @@ else
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li>
-                                <a href="https://planetbiru.com">Our Website</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://planetbiru.com">Website</a>
                             </li>
-                            <li>
-                                <a href="https://www.youtube.com/channel/UCY-qziSbBmJ7iZj-cXqmcMg">Our YouTube Channel</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.youtube.com/channel/UCY-qziSbBmJ7iZj-cXqmcMg">YouTube</a>
                             </li>
                         </ul>
                     </div>
