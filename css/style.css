@@ -203,7 +203,7 @@ MEDIAQUERIES
 .ayat-item {
     border-bottom: 1px solid #CCCCCC;
     padding-bottom: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
 }
 
 .ayat-item audio {
@@ -238,7 +238,7 @@ MEDIAQUERIES
     font-family: fontArab, "Traditional Arabic", Tahoma, sans-serif;
     font-weight: normal;
     text-align: right;
-    padding: 15px 0px 5px 0px;
+    padding: 10px 0px 5px 0px;
 }
 
 .translation {
