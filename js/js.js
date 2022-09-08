@@ -36,6 +36,7 @@ function endAudio(obj) {
 
 function playAudio(obj)
 {
+    $(obj).attr('data-playing', 'false');
     var played = $('audio[data-playing="true"]');
     if(played.length)
     {

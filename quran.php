@@ -143,6 +143,10 @@ class Quran{
         try {
             $this->database = new PDO("mysql:host=$this->serverName;port=$this->port;dbname=$this->databaseName", $this->username, $this->password);
             $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		 $this->execute("SET NAMES utf8");
+ 		$this->execute("SET character set utf8");
+
+
         } 
         catch(PDOException $e) 
         {
