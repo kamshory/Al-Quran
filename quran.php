@@ -284,6 +284,21 @@ class Quran{
         return $this->getData($sql);
     }
 
+    public function getJuz($juz, $translationKey = null)
+    {
+        $filter = " and ".$this->tableAyat.".juz = '$juz' ";
+        $sql = "select ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
+        ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key,
+        ".$this->tableTranslation.".translation
+        from ".$this->tableAyat." 
+        left join(".$this->tableTranslation.") 
+        on(".$this->tableTranslation.".ayat_key = ".$this->tableAyat.".ayat_key and ".$this->tableTranslation.".translation_key = '".$translationKey."')
+        where (1 = 1) $filter 
+        order by ".$this->tableAyat.".ayat_key asc 
+        ";
+        return $this->getData($sql);
+    }
+
     public function search($text, $translationKey, $all = false, $mark = false)
     {
         $arr = preg_split('/("[^"]*")|\h+/', $text, -1, PREG_SPLIT_NO_EMPTY|PREG_SPLIT_DELIM_CAPTURE);
@@ -389,6 +404,15 @@ class Quran{
         foreach($this->suratName as $number=>$names)
         {
             $menu .= '<li><a href="./?s='.$number.'">'.htmlspecialchars($names[0]).'</a></li>';
+        }
+        return $menu;
+    }
+    public function buildJuz()
+    {
+        $menu = "";
+        for($number = 1; $number <=30; $number++)
+        {
+            $menu .= '<li><a href="./?j='.$number.'">Juz '.$number.'</a></li>';
         }
         return $menu;
     }

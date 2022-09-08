@@ -209,6 +209,27 @@ MEDIAQUERIES
 .ayat-item audio {
     width: 100%;
     box-sizing: border-box;
+    border-radius: 4px;
+    background-color: #7386D5;
+}
+
+.list-unstyled {
+    padding: 0;
+}
+
+#sidebar ul.components {
+    padding: 0;
+}
+
+.list-surat {
+    margin: 0;
+    padding: 0;
+}
+
+.list-surat h4 {
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 16px;
 }
 
 .arab {
@@ -252,6 +273,6 @@ MEDIAQUERIES
     position: absolute;
     right: 8px;
     top: 8px;
-    padding: 2px 8px;
+    padding: 3px 10px;
     font-size: 14px;
 }

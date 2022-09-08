@@ -22,6 +22,10 @@ if($q != '')
     $result = $quran->search($q, 68, true, true);
     
 }
+else if($j != '')
+{
+    $result = $quran->getJuz($j, 68);
+}
 else if($s != '')
 {
     $result = $quran->getAyat($s, 68);
@@ -76,11 +80,11 @@ else
     </script>
 
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css'>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.min.css">
     <script>
         var surat = '<?php echo $s;?>';
     </script>
-    <script src="js/js.js"></script>
+    <script src="js/js.min.js"></script>
 </head>
 
 <body translate="no">
@@ -93,8 +97,14 @@ else
 
             <ul class="list-unstyled components">
                 <div class="list-surat">
+                    <h4>Daftar Surat</h4>
                     <ul>
                         <?php echo $quran->buildMenu();
+                        ?>
+                    </ul>
+                    <h4>Daftar Juz</h4>
+                    <ul>
+                        <?php echo $quran->buildJuz();
                         ?>
                     </ul>
                 </div>
