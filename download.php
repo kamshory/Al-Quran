@@ -13,7 +13,7 @@ for($i = 1; $i<115; $i++)
         {
             break;
         }
-        $file = sprintf("sound/%03d%03d.mp3", $i, $j);
+        $file = sprintf("sounds/%03d%03d.mp3", $i, $j);
         file_put_contents($file, $response);
     }
 }
