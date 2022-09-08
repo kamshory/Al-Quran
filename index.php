@@ -4,7 +4,15 @@ require_once dirname(__FILE__)."/quran.php";
 
 $q = @$_GET['q'];
 $s = @$_GET['s'];
+$j = @$_GET['j'];
 
+$serverName = "localhost";
+$port = 3306;
+$username = "quran";
+$password = "quran";
+$databaseName = "quran";
+$tableAyat = "quran_ayat";
+$tableTranslation = "quran_translation";
 
 $quran = new Quran($serverName, $port, $username, $password, $databaseName, $tableAyat, $tableTranslation);
 $quran->connect();
@@ -16,18 +24,18 @@ if($q != '')
 }
 else if($s != '')
 {
-    $result = $quran->getAyat($s, null, null, 68);
+    $result = $quran->getAyat($s, 68);
 }
 else 
 {
-    $result = $quran->getAyat(1, null, null, 68);
+    $result = $quran->getAyat(1, 68);
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+    <title>Al Quran</title>
     <meta charset="UTF-8">
 
     <link rel="apple-touch-icon" type="image/png"
@@ -41,8 +49,6 @@ else
         href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg"
         color="#111" />
 
-
-    <title>Al Quran</title>
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -71,46 +77,10 @@ else
 
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css'>
     <link rel="stylesheet" href="css/style.css">
-
-    <style>
-
-    </style>
-
     <script>
-        window.console = window.console || function (t) {};
-    </script>
-
-
-
-    <script>
-        if (document.location.search.match(/type=embed/gi)) {
-            window.parent.postMessage("resize", "*");
-        }
-
-
         var surat = '<?php echo $s;?>';
-        $(document).ready(function (e) {
-
-        });
-
-        function endAudio(obj) {
-            var parent = $(obj).closest('.ayat-item');
-            var uncle = parent.next();
-            if (uncle.length > 0) {
-                uncle.find('audio').trigger('play');
-            } else if (surat != '') {
-                var suratInt = parseInt(surat);
-                nextSurat(suratInt);
-            }
-        }
-
-        function nextSurat(suratInt) {
-            suratInt++;
-            window.location = './?s=' + suratInt;
-        }
     </script>
-
-
+    <script src="js/js.js"></script>
 </head>
 
 <body translate="no">
@@ -128,7 +98,6 @@ else
                         ?>
                     </ul>
                 </div>
-
 
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
@@ -223,8 +192,6 @@ else
             </div>
 
             <?php
-
-
     foreach($result as $data)
     {
         ?>
@@ -251,9 +218,6 @@ else
                 echo $quran->getAyatLabel($data['ayat_key']);
                 ?>
                 </div>
-
-
-
             </div>
             <?php
     }
@@ -261,18 +225,6 @@ else
 
         </div>
     </div>
-
-
-    <script id="rendered-js">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
-
-
-
 </body>
 
 </html>

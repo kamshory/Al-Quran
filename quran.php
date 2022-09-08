@@ -1,17 +1,7 @@
 <?php
 
-$serverName = "localhost";
-$port = 3306;
-$username = "quran";
-$password = "quran";
-$databaseName = "quran";
-$tableAyat = "quran_ayat";
-$tableTranslation = "quran_translation";
-
 class Quran{
-
     public $database = null;
-
     public $serverName = "localhost";
     public $port = 3306;
     public $username = "root";
@@ -239,7 +229,7 @@ class Quran{
         return $arr;
     }
 
-    public function getAyat($surat = null, $ayatFrom = null, $ayatTo = null, $translationKey = null)
+    public function getAyat($surat = null, $translationKey = null, $ayatFrom = null, $ayatTo = null)
     {
         $filter = "";
         if($surat == null)
@@ -361,16 +351,27 @@ class Quran{
         }
         return $data;
     }
+
     public function getAyatLabel($ayatKey)
     {
         $arr = explode(":", $ayatKey);
         return $this->suratName[(int) $arr[0]][0]. ' : '.((int) $arr[1]);
     }
+
     public function arabicNumber($number)
     {
         $num = sprintf("%d", $number);
-        $arabic = str_replace(array(
-            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+        return str_replace(array(
+            '0', 
+            '1', 
+            '2', 
+            '3', 
+            '4', 
+            '5', 
+            '6', 
+            '7', 
+            '8', 
+            '9'
         ), array(
             '٠', 
             '١', 
@@ -383,8 +384,8 @@ class Quran{
             '٨', 
             '٩'
         ), $num);
-        return $arabic;
     }
+
     public function buildMenu()
     {
         $menu = "";
