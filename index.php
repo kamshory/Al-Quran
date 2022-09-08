@@ -6,6 +6,8 @@ $q = @$_GET['q'];
 $s = @$_GET['s'];
 $j = @$_GET['j'];
 
+$scroll = @$_GET['scroll'];
+
 
 $q = preg_replace('/[^A-Za-z0-9\-\"\' ]/', '', $q); 
 $q = str_replace("'", '"', $q);
@@ -25,7 +27,6 @@ $quran->connect();
 if($q != '')
 {
     $result = $quran->search($q, 68, true, true);
-    
 }
 else if($j != '')
 {
@@ -39,6 +40,8 @@ else
 {
     $result = $quran->getAyat(1, 68);
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,10 +74,9 @@ else
     </script>
 
 
-    <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
@@ -88,6 +90,7 @@ else
     <link rel="stylesheet" href="css/style.min.css">
     <script>
         var surat = '<?php echo $s;?>';
+        var scroll = '<?php echo $scroll;?>';
     </script>
     <script src="js/js.min.js"></script>
 </head>
@@ -117,12 +120,12 @@ else
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Link</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="https://planetbiru.com">Our Website</a>
-                    </li>
-                    <li>
-                        <a href="https://www.youtube.com/channel/UCY-qziSbBmJ7iZj-cXqmcMg">Our YouTube Channel</a>
-                    </li>
+                        <li>
+                            <a href="https://planetbiru.com">Our Website</a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCY-qziSbBmJ7iZj-cXqmcMg">Our YouTube Channel</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -165,7 +168,8 @@ else
                                 <a class="nav-link" href="https://planetbiru.com">Website</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.youtube.com/channel/UCY-qziSbBmJ7iZj-cXqmcMg">YouTube</a>
+                                <a class="nav-link"
+                                    href="https://www.youtube.com/channel/UCY-qziSbBmJ7iZj-cXqmcMg">YouTube</a>
                             </li>
                         </ul>
                     </div>
@@ -183,7 +187,7 @@ else
     foreach($result as $data)
     {
         ?>
-            <div class="ayat-item">
+            <div class="ayat-item" data-ayat="<?php echo $data['ayat'];?>">
                 <div class="text arab">
                     <?php
             echo $data['text'];
@@ -202,8 +206,8 @@ else
                 </div>
 
                 <div class="link-surat">
-                    <a href="./?s=<?php echo $data['surat'];?>">
-                    <?php
+                    <a href="./?s=<?php echo $data['surat'];?>&scroll=<?php echo $data['ayat'];?>">
+                        <?php
                     echo $quran->getAyatLabel($data['ayat_key']);
                 ?>
                     </a>
