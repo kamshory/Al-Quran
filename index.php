@@ -1,6 +1,7 @@
 <?php
-
+require_once dirname(__FILE__)."/config.php";
 require_once dirname(__FILE__)."/quran.php";
+require_once dirname(__FILE__)."/audio.php";
 
 $q = @$_GET['q'];
 $s = @$_GET['s'];
@@ -11,15 +12,6 @@ $scroll = @$_GET['scroll'];
 
 $q = preg_replace('/[^A-Za-z0-9\-\"\' ]/', '', $q); 
 $q = str_replace("'", '"', $q);
-
-
-$serverName = "localhost";
-$port = 3306;
-$username = "quran";
-$password = "quran";
-$databaseName = "quran";
-$tableAyat = "quran_ayat";
-$tableTranslation = "quran_translation";
 
 $quran = new Quran($serverName, $port, $username, $password, $databaseName, $tableAyat, $tableTranslation);
 $quran->connect();
@@ -48,7 +40,7 @@ else
 
 <head>
     <title>Al Quran</title>
-    <meta http-equiv="Content-Type" content="text/html" charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html" charset=utf-8" />
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="apple-touch-icon" type="image/png"
         href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
@@ -65,22 +57,12 @@ else
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
-    </script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
-    </script>
-
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script src="js/js.min.js"></script>
 
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
-        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
-    </script>
+    
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
@@ -88,11 +70,14 @@ else
 
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css'>
     <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
         var surat = '<?php echo $s;?>';
         var scroll = '<?php echo $scroll;?>';
     </script>
-    <script src="js/js.min.js"></script>
+    
 </head>
 
 <body translate="no">
@@ -183,42 +168,54 @@ else
                 </form>
             </div>
 
-            <?php
+            <div class="main-content">
+                <?php
+                $audio = new Audio($cdn);
     foreach($result as $data)
     {
         ?>
-            <div class="ayat-item" data-anchor="<?php echo str_replace(':', '', $data['ayat_key']);?>">
-                <div class="text arab">
-                    <?php
+                <div class="ayat-item" data-anchor="<?php echo str_replace(':', '', $data['ayat_key']);?>">
+                    <div class="text arab">
+                        <?php
             echo ($data['text']);
             echo ' '.$quran->arabicNumber($data['ayat']);
             ?>
 
-                </div>
-                <div class="text translation">
-                    <?php
+                    </div>
+                    <div class="text translation">
+                        <?php
             echo $data['translation'];
             ?>
-                </div>
-                <div class="sound">
-                    <audio onended="endAudio(this)" onplay="playAudio(this)" data-ayat-key="<?php echo str_replace(':', '', $data['ayat_key']);?>"
-                        data-src="sounds/<?php echo str_replace(':', '', $data['ayat_key']);?>.mp3" controls></audio>
-                </div>
+                    </div>
+                    <div class="sound">
+                        <audio onended="endAudio(this)" onplay="playAudio(this)"
+                            data-ayat-key="<?php echo str_replace(':', '', $data['ayat_key']);?>"
+                            data-src="<?php echo $audio->createAudio($data);?>"
+                            controls></audio>
+                    </div>
 
-                <div class="link-surat">
-                    <a href="./?s=<?php echo $data['surat'];?>&scroll=<?php echo str_replace(':', '', $data['ayat_key']);?>">
-                        <?php
+                    <div class="link-surat">
+                        <a
+                            href="./?s=<?php echo $data['surat'];?>&scroll=<?php echo str_replace(':', '', $data['ayat_key']);?>">
+                            <?php
                     echo $quran->getAyatLabel($data['ayat_key']);
                 ?>
-                    </a>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
     }
     ?>
 
+            </div>
         </div>
     </div>
+
+    <button type="button" class="btn btn-success btn-floating btn-lg" id="btn-back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+
 </body>
 
 </html>

@@ -76,6 +76,7 @@ class Quran{
         "63"=>array("Al-Munafiqun", "Orang-orang yang Munafik"),
         "64"=>array("At-Tagabun", "Hari Dinampakkan Kesalahan-kesalahan"),
         "65"=>array("At-Talaq", "Talak"),
+        "66"=>array("At-Tahrim", "Mengharamkan"),
         "67"=>array("Al-Mulk", "Kerajaan"),
         "68"=>array("Al-Qalam", "Pena"),
         "69"=>array("Al-Haqqah", "Hari Kiamat"),
@@ -176,6 +177,23 @@ class Quran{
         }
     }
 
+    public function createNumber()
+    {
+        $sql = "select * from quran_ayat order by ayat_key asc";
+        $data = $this->getData($sql);
+        if($data != null && is_array($data))
+        {
+            $i = 0;
+            foreach($data as $row)
+            {
+                $i++;
+                $ayat_key = $row['ayat_key'];
+                $sql2 = "UPDATE quran_ayat set ayat_number = '$i' where `ayat_key` = '$ayat_key' ";
+                $this->execute($sql2);
+            }
+        }
+    }
+
     public function getData($sql)
     {
         $data = null;
@@ -267,7 +285,7 @@ class Quran{
         {
             $sql = "select ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
             ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key,
-            ".$this->tableTranslation.".translation
+            ".$this->tableAyat.".ayat_number, ".$this->tableTranslation.".translation
             from ".$this->tableAyat." 
             left join(".$this->tableTranslation.") 
             on(".$this->tableTranslation.".ayat_key = ".$this->tableAyat.".ayat_key and ".$this->tableTranslation.".translation_key = '".$translationKey."')
@@ -278,7 +296,8 @@ class Quran{
         else
         {
             $sql = "select ".$this->tableAyat.".text, ".$this->tableAyat.".simple 
-            ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key 
+            ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key,
+            ".$this->tableAyat.".ayat_number  
             from ".$this->tableAyat."
             where (1 = 1) $filter 
             order by ".$this->tableAyat.".ayat_key asc 
@@ -293,6 +312,7 @@ class Quran{
         $filter = " and ".$this->tableAyat.".juz = '$juz' ";
         $sql = "select ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
         ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat, ".$this->tableAyat.".ayat_key,
+        ".$this->tableAyat.".ayat_number, 
         ".$this->tableTranslation.".translation
         from ".$this->tableAyat." 
         left join(".$this->tableTranslation.") 
@@ -322,6 +342,7 @@ class Quran{
         $sql = "SELECT t.* FROM(SELECT ".$this->tableAyat.".text, ".$this->tableAyat.".simple, 
         ".$this->tableAyat.".surat, ".$this->tableAyat.".ayat,
         ".$this->tableTranslation.".translation, ".$this->tableTranslation.".ayat_key,
+        ".$this->tableAyat.".ayat_number, 
         MATCH(translation) AGAINST('$text' IN NATURAL LANGUAGE MODE) AS score 
         FROM ".$this->tableTranslation." 
         LEFT JOIN(".$this->tableAyat.") 
