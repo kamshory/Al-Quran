@@ -3,7 +3,7 @@
 $serverName = "localhost";
 $port = 3306;
 $username = "root";
-$password = "alto1234";
+$password = "pass";
 $databaseName = "quran";
 $tableAyat = "quran_ayat";
 $tableTranslation = "quran_translation";
