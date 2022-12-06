@@ -5,7 +5,7 @@ class Quran{
     public $serverName = "localhost";
     public $port = 3306;
     public $username = "root";
-    public $password = "alto1234";
+    public $password = "pass1234";
     public $databaseName = "quran";
     public $tableAyat = "quran_ayat";
     public $tableTranslation = "quran_translation";
