@@ -194,6 +194,12 @@ class Quran{
         }
     }
 
+    /**
+     * Get data
+     *
+     * @param string $sql
+     * @return array
+     */
     public function getData($sql)
     {
         $data = null;
@@ -247,6 +253,15 @@ class Quran{
         return $arr;
     }
 
+    /**
+     * Get data
+     *
+     * @param mixed $surat
+     * @param mixed $translationKey
+     * @param mixed $ayatFrom
+     * @param mixed $ayatTo
+     * @return array
+     */
     public function getAyat($surat = null, $translationKey = null, $ayatFrom = null, $ayatTo = null)
     {
         $filter = "";
@@ -307,6 +322,13 @@ class Quran{
         return $this->getData($sql);
     }
 
+    /**
+     * Get juz
+     *
+     * @param int $juz
+     * @param mixed $translationKey
+     * @return array
+     */
     public function getJuz($juz, $translationKey = null)
     {
         $filter = " and ".$this->tableAyat.".juz = '$juz' ";
@@ -429,7 +451,7 @@ class Quran{
         $menu = "";
         foreach($this->suratName as $number=>$names)
         {
-            $menu .= '<li><a href="./?s='.$number.'">'.htmlspecialchars($names[0]).'</a></li>';
+            $menu .= '<li><a href="./?s='.$number.'">'.$number.'. '.htmlspecialchars($names[0]).'</a></li>';
         }
         return $menu;
     }

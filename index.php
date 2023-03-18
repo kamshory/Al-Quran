@@ -33,7 +33,6 @@ else
     $result = $quran->getAyat(1, 68);
 }
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
